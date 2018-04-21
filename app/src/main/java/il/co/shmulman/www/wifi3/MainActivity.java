@@ -1,8 +1,12 @@
 package il.co.shmulman.www.wifi3;
 
-import android.bluetooth.le.ScanResult;
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -23,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     // TAG is used for informational messages
     private final static String TAG = "MainActivity 18.4.2018";
 
+    // Location parameter
+    //String ALLOW_LOCATION="ALLOW_LOCATION";
+    int ALLOW_LOCATION = 1;
+
     EditText ip_address;
     TextView textView;
     Button start_button;
@@ -39,12 +47,22 @@ public class MainActivity extends AppCompatActivity {
         textView.setMovementMethod(new ScrollingMovementMethod());
         ip_address = findViewById(R.id.editText);
 
+        // Location permission
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+            textView.append("The LOCATION permission is already granted\n");
+        } else {
+            textView.append("The LOCATION permission is NOT granted\n");
+            requestStoragePermission();
+        }
+
+
+
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-
+                // Date
                 Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
                 Date currentLocalTime = cal.getTime();
                 DateFormat date = new SimpleDateFormat("HH:mm:ss");
@@ -52,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
                 String localTime = date.format(currentLocalTime);
                 textView.append("onClick is initiated: "+ localTime +"\n");
 
-                List<android.net.wifi.ScanResult> list;
+                // Wifi
+                wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                //List<android.net.wifi.ScanResult> list;
+                List<ScanResult> list;
                 list = wifiManager.getScanResults();
                 for(int i = 0; i < list.size(); i++){
                     textView.append("SSID from list:" + list.get(i).SSID + "\n");
@@ -62,5 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void requestStoragePermission(){
+        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_COARSE_LOCATION},ALLOW_LOCATION);
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+            textView.append("The LOCATION permission is already granted\n");
+        } else {
+            textView.append("The LOCATION permission is NOT granted\n");
+            requestStoragePermission();
+        }
     }
 }
