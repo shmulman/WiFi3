@@ -86,13 +86,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestStoragePermission(){
-        ActivityCompat.requestPermissions(MainActivity.this, new String[] {Manifest.permission.ACCESS_COARSE_LOCATION},ALLOW_LOCATION);
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
-            textView.append("The LOCATION permission is already granted\n");
-        } else {
-            textView.append("The LOCATION permission is NOT granted\n");
-            requestStoragePermission();
-        }
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]
+                {Manifest.permission.ACCESS_COARSE_LOCATION},ALLOW_LOCATION);
+        textView.append("The LOCATION permissions are updated\n");
     }
 }
