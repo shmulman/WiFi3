@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "MainActivity 18.4.2018";
 
     // Location parameter
-    //String ALLOW_LOCATION="ALLOW_LOCATION";
     int ALLOW_LOCATION = 1;
 
     EditText ip_address;
@@ -48,15 +47,7 @@ public class MainActivity extends AppCompatActivity {
         ip_address = findViewById(R.id.editText);
 
         // Location permission
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
-            textView.append("The LOCATION permission is already granted\n");
-        } else {
-            textView.append("The LOCATION permission is NOT granted\n");
-            requestStoragePermission();
-        }
-
-
+        requestStoragePermission();
 
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,8 +77,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestStoragePermission(){
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]
-                {Manifest.permission.ACCESS_COARSE_LOCATION},ALLOW_LOCATION);
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+            textView.append("The LOCATION permission is already granted\n");
+        } else {
+            textView.append("The LOCATION permission is NOT granted\n");
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]
+                    {Manifest.permission.ACCESS_COARSE_LOCATION},ALLOW_LOCATION);
+        }
         textView.append("The LOCATION permissions are updated\n");
     }
 }
