@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">WiFi3</string>
-    <string name="Start">Start WiFi</string>
-    <string name="Search">Search for Device</string>
-    <string name="Connect">Connect to Device</string>
+    <string name="Start_WiFi">Start WiFi</string>
+    <string name="read_html_btn">Read HTML file</string>
+    <string name="ip_string">10.100.102.8</string>
     <string name="DiscoverServices">Discover Services and Characteristics</string>
     <string name="GetChars">Get Characteristics</string>
     <string name="Disconnect">Disconnect</string>

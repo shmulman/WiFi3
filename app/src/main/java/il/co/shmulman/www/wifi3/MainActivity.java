@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText ip_address;
     TextView textView;
-    Button start_button;
+    Button start_button, read_html_button;
 
     WifiManager wifiManager;
 
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         start_button = findViewById(R.id.start_wifi);
+        read_html_button = findViewById(R.id.read_html);
         textView = findViewById(R.id.capsense_value);
         textView.setMovementMethod(new ScrollingMovementMethod());
         ip_address = findViewById(R.id.editText);
@@ -57,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
 
                 // Wifi
                 showWiFi();
+            }
+        });
+
+        read_html_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ip_str = getString(R.string.ip_string);
+                textView.setText("Reading HTML file\n");
+                textView.append("IP:" + ip_str +"\n");
+
             }
         });
     }

@@ -17,11 +17,21 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
+        android:text="@string/ip_string"
         />
 
     <Button
         android:id="@+id/start_wifi"
-        android:text="@string/Start"
+        android:text="@string/Start_WiFi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:enabled="true"
+        />
+
+    <Button
+        android:id="@+id/read_html"
+        android:text="@string/read_html_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAllCaps="false"
