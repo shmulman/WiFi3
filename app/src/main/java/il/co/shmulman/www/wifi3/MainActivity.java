@@ -52,26 +52,11 @@ public class MainActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // Date
-                Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
-                Date currentLocalTime = cal.getTime();
-                DateFormat date = new SimpleDateFormat("HH:mm:ss");
-                date.setTimeZone(TimeZone.getTimeZone("GMT+3:00"));
-                String localTime = date.format(currentLocalTime);
-                textView.append("onClick is initiated: "+ localTime +"\n");
+                showDate();
 
                 // Wifi
-                wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                //List<android.net.wifi.ScanResult> list;
-                List<ScanResult> list;
-                list = wifiManager.getScanResults();
-                for(int i = 0; i < list.size(); i++){
-                    textView.append("SSID from list:" + list.get(i).SSID + "\n");
-                }
-
-                textView.append("wifiManager list size: "+ list.size() +"\n");
-
+                showWiFi();
             }
         });
     }
@@ -84,7 +69,26 @@ public class MainActivity extends AppCompatActivity {
             textView.append("The LOCATION permission is NOT granted\n");
             ActivityCompat.requestPermissions(MainActivity.this, new String[]
                     {Manifest.permission.ACCESS_COARSE_LOCATION},ALLOW_LOCATION);
+            textView.append("The LOCATION permissions are updated\n");
         }
-        textView.append("The LOCATION permissions are updated\n");
+    }
+
+    private void showDate(){
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+3:00"));
+        Date currentLocalTime = cal.getTime();
+        DateFormat date = new SimpleDateFormat("HH:mm:ss");
+        date.setTimeZone(TimeZone.getTimeZone("GMT+3:00"));
+        String localTime = date.format(currentLocalTime);
+        textView.append("onClick is initiated: "+ localTime +"\n");
+    }
+
+    private void showWiFi(){
+        wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        List<ScanResult> list;
+        list = wifiManager.getScanResults();
+        for(int i = 0; i < list.size(); i++){
+            textView.append("SSID from list:" + list.get(i).SSID + "\n");
+        }
+        textView.append("wifiManager list size: "+ list.size() +"\n");
     }
 }
